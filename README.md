@@ -38,6 +38,7 @@ ________________________________________
   - Pivoted by Archive_Date → Specialty → Age_Profile → Time_Band
   - Columns for Day Case, Inpatient, Outpatient, Total
   - Shows exact patient counts and allows expansion/collapse.
+
 ![Project details](./Images/Details.png)
 
 ________________________________________
