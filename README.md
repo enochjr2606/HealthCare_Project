@@ -29,6 +29,7 @@ ________________________________________
   - Paediatric Dermatology `(168 wks)`, Paediatric ENT `(148 wks)`, Paed Orthopaedic `(115 wks)`, Outpatient A&E `(111 wks)`, Paed Cardiology `(102 wks)`
 - Monthly Trend Analysis
   - Line charts showing monthly counts of Day Case/Inpatient vs. Outpatient over the multi-year period.
+
 ![Project summary](./Images/Summary_Dashboard.png)
 
 ### 📈 Detailed
@@ -37,7 +38,7 @@ ________________________________________
   - Pivoted by Archive_Date → Specialty → Age_Profile → Time_Band
   - Columns for Day Case, Inpatient, Outpatient, Total
   - Shows exact patient counts and allows expansion/collapse.
-![Project details](./Images/Detailed.png)
+![Project details](./Images/Details.png)
 
 ________________________________________
 ## 💡 Key Insights
