@@ -1,0 +1,74 @@
+/* 
+-------------------------------------------------------------------------------
+DAX Measures for Analyzing Patient Wait List Data
+- This set of measures supports dynamic analysis and visualization of patient wait list trends.
+- It includes calculations for average and median values, current and previous year comparisons,
+  dynamic titles for charts, and conditional messaging when data is missing.
+- The logic is driven by user selections (e.g., calculation method) and filters applied to the report.
+- Measures are optimized for interactive dashboards in Power BI, enabling data-driven decision-making.
+-------------------------------------------------------------------------------
+*/
+
+
+/*-- Calculates the average of the 'Total' column from the All_Data table*/
+Average Wait List = AVERAGE(
+    All_Data[Total]
+)
+
+/*-- Returns either the average or median wait list based on user selection from the 'Calculation Method' slicer*/
+Avg/Med Wait List = SWITCH(
+    VALUES('Calculation Method'[Calc Method]),
+    "Average", [Average Wait List],
+    "Median", [Median Wait List]
+)
+
+/*-- Dynamically changes the chart title based on the selected calculation method (Average or Median)*/
+Dynamic Title = SWITCH(
+    VALUES('Calculation Method'[Calc Method]),
+    "Average", "Key Indicators - Patient Wait List (Average)",
+    "Median", "Key Indicators - Patient Wait List (Median)"
+)
+
+/*-- Calculates the wait list total for the latest available archive date*/
+Latest Month Wait List = 
+    CALCULATE(
+        SUM(All_Data[Total]),
+        All_Data[Archive_Date] = MAX(All_Data[Archive_Date])
+    ) + 0  -- Ensures it returns 0 instead of blank if no data is found
+
+/*-- Calculates the median of the 'Total' column in the All_Data table*/
+Median Wait List = MEDIAN(
+    All_Data[Total]
+)
+
+/*-- Displays a message when there is no non-Outpatient data available*/
+NoDataLeft = 
+    IF(
+        ISBLANK(
+            CALCULATE(
+                SUM(All_Data[Total]),
+                All_Data[Case_Type] <> "Outpatient"
+            )
+        ),
+        "No Data for Selected Criteria", ""
+    )
+
+/*-- Displays a message when there is no Outpatient data available*/
+NoDataRight = 
+    IF(
+        ISBLANK(
+            CALCULATE(
+                SUM(All_Data[Total]),
+                All_Data[Case_Type] = "Outpatient"
+            )
+        ),
+        "No Data for Selected Criteria", ""
+    )
+
+/*-- Calculates the wait list total for the same month in the previous year*/
+Prev. Year Latest Month Wait List = 
+    CALCULATE(
+        SUM(All_Data[Total]),
+        All_Data[Archive_Date] = EDATE(
+            MAX(All_Data[Archive_Date]), -12)
+    ) + 0  -- Ensures it returns 0 instead of blank if no data is found
