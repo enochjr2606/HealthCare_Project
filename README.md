@@ -88,7 +88,7 @@ ________________________________________
    
 ________________________________________
 ## 📄 Access Full Documentation
-👉  Dataset [link](./Dataset/financial_loan.csv)
+👉  Dataset [link](./Dataset/)
 
 ________________________________________
 ## 🙌 Acknowledgments
